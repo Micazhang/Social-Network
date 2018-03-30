@@ -1,0 +1,67 @@
+Options +FollowSymLinks -MultiViews +Indexes
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|tpl)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
+
+# Cache Control
+<IfModule mod_headers.c>
+<FilesMatch "\.(jpg|jpeg|png|gif|swf|css|js)$">
+    Header set Cache-Control "max-age=604800, public"
+</FilesMatch>
+</IfModule>
+
+RewriteEngine on
+RewriteOptions MaxRedirects=1
+RewriteCond %{REQUEST_FILENAME} -f [NC,OR]
+RewriteCond %{REQUEST_FILENAME} -d [NC]
+RewriteRule .* - [L]
+
+
+# Search
+RewriteRule ^search/?$ search.php [L]
+RewriteRule ^search/hashtag/([^/]+)/?$ search.php?query=$1&hashtag=1 [L]
+RewriteRule ^search/([^/]+)/?$ search.php?query=$1&hashtag=0 [L]
+
+# Sign(in|up|out)
+RewriteRule ^signin/?$ sign.php?do=in [L]
+RewriteRule ^signup/?$ sign.php?do=up [L]
+RewriteRule ^signout/?$ sign.php?do=out [L]
+RewriteRule ^reset/?$ sign.php?do=reset [L]
+RewriteRule ^activation/([^/]+)/([^/]+)/?$ activation.php?id=$1&token=$2 [L]
+
+# Started
+RewriteRule ^started/?$ started.php [L]
+RewriteRule ^started/finished?$ started.php?finished=true [L]
+
+# Notifications
+RewriteRule ^notifications/?$ notifications.php [L]
+
+# Settings
+RewriteRule ^settings/?$ settings.php [L]
+RewriteRule ^settings/([^/]+)/?$ settings.php?view=$1 [L]
+
+# Posts & Photos
+RewriteRule ^posts/([^/]+)/?$ post.php?post_id=$1 [L]
+RewriteRule ^photos/([^/]+)/?$ photo.php?photo_id=$1 [L]
+
+# Saved
+RewriteRule ^saved/?$ index.php?view=saved [L]
+
+# People
+RewriteRule ^people/?$ people.php [L]
+RewriteRule ^people/find/?$ people.php?view=find [L]
+RewriteRule ^people/friend_requests/?$ people.php?view=friend_requests [L]
+RewriteRule ^people/sent_requests/?$ people.php?view=sent_requests [L]
+
+# Blogs
+RewriteRule ^articles/?$ index.php?view=articles [L]
+RewriteRule ^blogs/?$ blogs.php [L]
+RewriteRule ^blogs/new/?$ blogs.php?view=new [L]
+RewriteRule ^blogs/edit/([^/]+)/?$ blogs.php?view=edit&post_id=$1 [L]
+RewriteRule ^blogs/([^/]+)/([^/]+)/?$ blogs.php?view=article&post_id=$1 [L]
+
+# Profile
+RewriteRule ^([^/]+)/?$ profile.php?username=$1 [L,QSA]
+RewriteRule ^([^/]+)/([^/]+)/?$ profile.php?username=$1&view=$2 [L]
+RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ profile.php?username=$1&view=$2&id=$3 [L]
