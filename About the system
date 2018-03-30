@@ -1,0 +1,27 @@
+This system is basically a small social network which contains basic functions that allow you to share your moments and information with friends. XAMPP is needed to be downloaded to run the system which uses Apache environment and MySQL.
+
+The language we use:
+PHP, JavaScript
+
+Functions we have:
+•	User login, logout and register 
+•	Forget password
+•	Email verification
+•	User profile 
+•	Account settings
+•	Notification
+
+•	Post function with text, article, audio, video, file, image and sticker
+•	Post stream display
+•	Post authority (public, friends, and only me)
+•	Like and comment function
+•	Save post, hide post function
+•	Blog page
+•	People page with friend requests and search function
+•	Photos and album with edit, add and delete function
+
+•	Friends request
+•	Followers and followings
+
+•	Search users and posts
+•	Hashtag
